@@ -3,10 +3,17 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm run start:all",
+    "start:shell": "ng serve shell --port 4200",
+    "start:mfe-header": "ng serve mfe-header --port 4201",
+    "start:mfe-shop": "ng serve mfe-shop --port 4202",
+    "start:mfe-react": "npm --prefix mfe-react run dev",
+    "start:remotes": "concurrently -k -n header,shop,react \"npm run start:mfe-header\" \"npm run start:mfe-shop\" \"npm run start:mfe-react\"",
+    "start:all": "concurrently -k -n remotes,shell \"npm run start:remotes\" \"wait-on http://localhost:4201/remoteEntry.json http://localhost:4202/remoteEntry.json http://localhost:4300/remoteEntry.js && npm run start:shell\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postinstall": "patch-package"
   },
   "prettier": {
     "printWidth": 100,
@@ -23,18 +30,38 @@
   "private": true,
   "packageManager": "npm@10.9.3",
   "dependencies": {
+    "@angular/animations": "^21.0.0",
     "@angular/common": "^21.0.0",
     "@angular/compiler": "^21.0.0",
     "@angular/core": "^21.0.0",
     "@angular/forms": "^21.0.0",
     "@angular/platform-browser": "^21.0.0",
     "@angular/router": "^21.0.0",
+    "@module-federation/runtime": "^0.22.0",
+    "@softarc/native-federation-node": "^3.3.4",
+    "es-module-shims": "^1.5.12",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "patch-package": "^8.0.1",
+    "@angular-architects/native-federation": "^20.1.7",
+    "@angular-devkit/build-angular": "^21.0.4",
+    "@angular/build": "^21.0.4",
     "@angular/cli": "^21.0.4",
     "@angular/compiler-cli": "^21.0.0",
-    "typescript": "~5.9.2"
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "concurrently": "^9.2.0",
+    "jsdom": "^27.1.0",
+    "ng-packagr": "^21.0.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.12",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8",
+    "wait-on": "^8.0.5"
   }
 }

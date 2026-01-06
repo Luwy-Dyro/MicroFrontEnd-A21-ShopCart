@@ -1,0 +1,33 @@
+diff --git a/node_modules/@angular-architects/native-federation/src/utils/angular-esbuild-adapter.js b/node_modules/@angular-architects/native-federation/src/utils/angular-esbuild-adapter.js
+index a5dc51c..b6d2934 100644
+--- a/node_modules/@angular-architects/native-federation/src/utils/angular-esbuild-adapter.js
++++ b/node_modules/@angular-architects/native-federation/src/utils/angular-esbuild-adapter.js
+@@ -101,12 +101,17 @@ function runEsbuild(builderOptions_1, context_1, entryPoints_1, external_1, outd
+         const workspaceRoot = context.workspaceRoot;
+         const optimizationOptions = (0, utils_1.normalizeOptimization)(builderOptions.optimization);
+         const sourcemapOptions = (0, utils_1.normalizeSourceMaps)(builderOptions.sourceMap);
++        const fullProjectRoot = path.join(workspaceRoot, projectRoot);
+         const searchDirectories = yield (0, private_1.generateSearchDirectories)([
+-            projectRoot,
++            fullProjectRoot,
+             workspaceRoot,
+         ]);
+-        const tailwindConfigurationPath = (0, private_1.findTailwindConfiguration)(searchDirectories);
+-        const fullProjectRoot = path.join(workspaceRoot, projectRoot);
++        const postcssConfiguration = yield (0, private_1.loadPostcssConfiguration)(searchDirectories);
++        // Tailwind v4 moved its PostCSS plugin to @tailwindcss/postcss.
++        // Prefer explicit PostCSS config (if present) to avoid using tailwindcss as a PostCSS plugin.
++        const tailwindConfigurationPath = postcssConfiguration
++            ? undefined
++            : (0, private_1.findTailwindConfiguration)(searchDirectories);
+         const resolver = (0, node_module_1.createRequire)(fullProjectRoot + '/');
+         const tailwindConfiguration = tailwindConfigurationPath
+             ? {
+@@ -143,6 +148,7 @@ function runEsbuild(builderOptions_1, context_1, entryPoints_1, external_1, outd
+             inlineStyleLanguage: builderOptions.inlineStyleLanguage,
+             jit: false,
+             tailwindConfiguration,
++            postcssConfiguration,
+         }, target, undefined);
+         const commonjsPluginModule = yield import('@chialab/esbuild-plugin-commonjs');
+         const commonjsPlugin = commonjsPluginModule.default;

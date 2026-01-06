@@ -3,6 +3,15 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "cart-state": [
+        "projects/cart-state/src/public-api.ts"
+      ],
+      "ui-kit": [
+        "projects/ui-kit/src/public-api.ts"
+      ]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -21,5 +30,37 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/shell/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/shell/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/mfe-header/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/mfe-header/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/mfe-shop/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/mfe-shop/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/cart-state/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/cart-state/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ui-kit/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ui-kit/tsconfig.spec.json"
+    }
+  ]
 }
