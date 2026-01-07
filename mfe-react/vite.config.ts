@@ -24,5 +24,5 @@ export default defineConfig({
       'Access-Control-Allow-Origin': '*',
     },
   },
-  build: { target: 'esnext' },
+  build: { target: 'esnext', minify: true, outDir: 'dist' },
 });

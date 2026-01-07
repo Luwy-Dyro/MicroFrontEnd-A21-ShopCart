@@ -1,4 +1,4 @@
 {
-	"mfe-header": "http://localhost:4201/remoteEntry.json",
-	"mfe-shop": "http://localhost:4202/remoteEntry.json"
+	"mfe-header": "http://cart-mfe-header.up.railway.app/remoteEntry.json",
+	"mfe-shop": "http://cart-mfe-shop.up.railway.app/remoteEntry.json"
 }
