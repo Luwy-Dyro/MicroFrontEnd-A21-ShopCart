@@ -40,7 +40,7 @@ export class ReactHostComponent implements OnDestroy {
       remotes: [
         {
           name: 'mfe_react',
-          entry: 'http://localhost:4300/remoteEntry.js',
+          entry: 'http://cart-mfe-react.up.railway.app/remoteEntry.js',
           type: 'module',
         },
       ],
